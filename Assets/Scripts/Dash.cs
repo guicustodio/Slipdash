@@ -17,25 +17,75 @@ public class Dash : MonoBehaviour
     [SerializeField] private float jumpVelocity;
     [SerializeField] private bool trava = true;
 
+    [SerializeField] private float FallingThreshold = 0;
+    private bool Falling = false;
+
+    private CircleCollider2D circleCollider;
+
+    [SerializeField] private LayerMask groundLayerMask;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        circleCollider = GetComponent<CircleCollider2D>();
     }
 
     private void Update()
     {
         PlayerMovement();
+        CheckIfFalling();
+        CheckIfGrounded();
     }
 
+    private bool IsGrounded()
+    {
+        RaycastHit2D raycastHit = Physics2D.Raycast(circleCollider.bounds.center, -Vector2.up, circleCollider.bounds.extents.y + 0.5f, groundLayerMask);
+        Color rayColor;
+        if (raycastHit.collider != null)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+        //Debug.DrawRay(transform.position, -Vector2.up * (circleCollider.bounds.extents.y + 0.5f), rayColor);
+        //Debug.Log(raycastHit.collider);
+        return raycastHit.collider != null;
+    }
+
+    void CheckIfGrounded()
+    {
+        if (IsGrounded())
+        {
+            animator.SetBool("isGrounded", true);
+            animator.SetBool("isFalling", false);
+        }
+    }
+    void CheckIfFalling()
+    {
+        if (rb.velocity.y < FallingThreshold)
+        {
+            Falling = true;
+        }
+        else
+        {
+            Falling = false;
+        }
+        if (Falling)
+        {
+            IsFalling();
+        }
+    }
+
+    void IsFalling()
+    {
+        animator.SetBool("isFalling", true);
+        animator.SetBool("isJumping", false);
+        animator.SetBool("isGrounded", false);
+    }
     void PlayerMovement()
     {
-        if (rb.velocity.y < 0)
-        {
-            animator.SetBool("isFalling", true);
-            animator.SetBool("isJumping", false);
-            animator.SetBool("isGrounded", false);
-        }
-
         if (Input.GetKeyDown(KeyCode.RightArrow) && trava == true)
         {
             StartCoroutine(DashTime());
@@ -79,11 +129,7 @@ public class Dash : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (rb.velocity.y == 0 && trava == true)
-        {
-            animator.SetBool("isGrounded", true);
-            animator.SetBool("isFalling", false);
-        }
+
         if (col.gameObject.name == "Tilemap")
         {
             Destroy(this.gameObject);

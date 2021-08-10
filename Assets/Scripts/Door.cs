@@ -20,7 +20,6 @@ public class Door : MonoBehaviour
         {
             SwitchSprite();
         }
-
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -31,8 +30,12 @@ public class Door : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+        else
+        {
+            Destroy(collision.gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
-
     public void SwitchSprite()
     {
         spriteRenderer.sprite = newSprite;
