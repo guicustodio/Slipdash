@@ -55,13 +55,14 @@ public class Dash : MonoBehaviour
 
             if (touch.position.x > Screen.width / 2) //Direita
             {
-                rb.AddForce(new Vector2(dashForce, player.transform.position.y));
-                rb.velocity = Vector2.zero;
-                trava = false;
+                StartCoroutine(DashTime());
             }
             else if (touch.position.x < Screen.width / 2 && trava == true) //Esquerda 
             {
                 rb.velocity = Vector2.up * jumpVelocity;
+                animator.SetBool("isJumping", true);
+                animator.SetBool("isFalling", false);
+                animator.SetBool("isGrounded", false);
             }
         }
     }
@@ -95,43 +96,43 @@ public class Dash : MonoBehaviour
         trava = true;
         if (col.gameObject.name == "Bar00")
         {
-            player.transform.position = new Vector2(-15.3f, player.transform.position.y);
+            player.transform.position = new Vector2(-15.5f, player.transform.position.y);
             animator.SetBool("isDashing", false);
             Destroy(limits[0]);
         }
         if (col.gameObject.name == "Bar01")
         {
-            player.transform.position = new Vector2(-9.3f, player.transform.position.y);
+            player.transform.position = new Vector2(-9.5f, player.transform.position.y);
            animator.SetBool("isDashing", false);
             Destroy(limits[1]);
         }
         if (col.gameObject.name == "Bar02")
         {
-            player.transform.position = new Vector2(-3.3f, player.transform.position.y);
+            player.transform.position = new Vector2(-3.5f, player.transform.position.y);
            animator.SetBool("isDashing", false);
             Destroy(limits[2]);
         }
         if (col.gameObject.name == "Bar03")
         {
-            player.transform.position = new Vector2(2.9f, player.transform.position.y);
+            player.transform.position = new Vector2(2.5f, player.transform.position.y);
             animator.SetBool("isDashing", false);
             Destroy(limits[3]);
         }
         if (col.gameObject.name == "Bar04")
         {
-            player.transform.position = new Vector2(8.6f, player.transform.position.y);
+            player.transform.position = new Vector2(8.5f, player.transform.position.y);
             animator.SetBool("isDashing", false);
             Destroy(limits[4]);
         }
         if (col.gameObject.name == "Bar05")
         {
-            player.transform.position = new Vector2(14.7f, player.transform.position.y);
+            player.transform.position = new Vector2(14.4f, player.transform.position.y);
             animator.SetBool("isDashing", false);
             Destroy(limits[5]);
         }
         if (col.gameObject.name == "Bar06")
         {
-            player.transform.position = new Vector2(20.7f, player.transform.position.y);
+            player.transform.position = new Vector2(20.4f, player.transform.position.y);
             animator.SetBool("isDashing", false);
             Destroy(limits[6]);
         }
