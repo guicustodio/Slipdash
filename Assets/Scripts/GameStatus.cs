@@ -9,6 +9,9 @@ public class GameStatus : MonoBehaviour
     [SerializeField] public int currentScore = 0;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] SpriteRenderer door;
+    [SerializeField] GameObject player;
+
+    //Instantiate(player, new Vector3(-21.5f, -10.5f, 0), Quaternion.identity);
 
     void Start()
     {

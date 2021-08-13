@@ -8,6 +8,7 @@ TagManager:
   - Barra_2
   - obs
   - Coin
+  - Tutorial Button
   layers:
   - Default
   - TransparentFX

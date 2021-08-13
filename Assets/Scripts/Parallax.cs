@@ -9,6 +9,22 @@ public class Parallax : MonoBehaviour
 
     Material m_Material;
 
+    private void Awake()
+    {
+        SetUpSingleton();
+    }
+
+    private void SetUpSingleton()
+    {
+        if(FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
     void Start()
     {
         m_Material = GetComponent<Renderer>().material;

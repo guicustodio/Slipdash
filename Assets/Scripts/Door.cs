@@ -16,7 +16,7 @@ public class Door : MonoBehaviour
     {
         GameObject GameStatus = GameObject.Find("Game Status");
         GameStatus GS = GameStatus.GetComponent<GameStatus>();
-        if (GS.currentScore >= 4)
+        if (GS.currentScore >= 6)
         {
             SwitchSprite();
         }
@@ -26,7 +26,7 @@ public class Door : MonoBehaviour
     {
         GameObject GameStatus = GameObject.Find("Game Status");
         GameStatus GS = GameStatus.GetComponent<GameStatus>();
-        if (GS.currentScore >= 4)
+        if (GS.currentScore >= 6)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
