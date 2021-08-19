@@ -135,10 +135,7 @@ public class Dash : MonoBehaviour
             Destroy(this.gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        if (col.gameObject.name == "Cristal") 
-        {
-            SceneManager.LoadScene("SampleScene");
-        }
+
         trava = true;
         if (col.gameObject.name == "Bar00")
         {
